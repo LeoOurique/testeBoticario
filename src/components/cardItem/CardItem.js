@@ -7,7 +7,7 @@ const cardItem = props => {
       {props.item !== undefined ? (
         <>
           <C.ImageBox>
-            <img src={props.item.imageObjects[0].large} />{' '}
+            <img src={props.item.imageObjects[0].small} />{' '}
           </C.ImageBox>
           <C.TextBox>
             <p>{props.item.name}</p>

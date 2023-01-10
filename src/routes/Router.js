@@ -8,7 +8,7 @@ const Router = () => {
   return (
     <Routes>
       <Route index element={<Sacola />} />
-      <Route path="/pagamento" element={<Pagamento />} />
+      <Route path="/pagamento" element={<Sacola />} />
       <Route path="/confirmacao" element={<Confirmacao />} />
       {/* <Route path="*" element={<ErrorPage />} /> */}
     </Routes>

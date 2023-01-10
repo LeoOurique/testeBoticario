@@ -3,11 +3,11 @@ import { BrowserRouter } from "react-router-dom";
 import './index.css';
 
 export function App() {
-  return ( 
+  return (
     <div>
       <BrowserRouter>
-          <Router/>
-      </BrowserRouter> 
+        <Router />
+      </BrowserRouter>
     </div>
 
   )
