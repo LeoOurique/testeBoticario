@@ -1,17 +1,53 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { GetItemList } from '../../hooks/GetItemList';
 import CardItem from '../../components/cardItem/CardItem';
 import Header from '../../components/header/Header';
 import * as S from './styled';
 import { goToConfirm, goToPayment } from '../../routes/coordinator';
 import { useNavigate, useLocation } from 'react-router-dom';
-import CardPagamento from '../../components/CardPagamento/CardPagamento';
+import useForm from '../../hooks/UseForm';
 
 const Sacola = () => {
+  const [btVerify, setBtVerify] = useState(false);
   const [list, items] = GetItemList();
   const navigate = useNavigate();
   const location = useLocation();
   console.log(list);
+
+  const { formulario, onChange, limpaInputs, maskcard, maskval, maskcvv } = useForm({
+    numerocartao: '',
+    nomecartao: '',
+    validade: '',
+    cvv: 0,
+  });
+  console.log(formulario);
+  const today = new Date()
+  const todaymm = today.getMonth() + 1
+  const todayaaaa = today.getFullYear()
+
+  function enviarDados(event) {
+    event.preventDefault()
+    const mesinput = formulario.validade.slice(0, 2)
+    const anoinput = formulario.validade.slice(3, 7)
+    console.log(mesinput, anoinput);
+
+    if (mesinput > 12) {
+      alert('Selecione um mês válido')
+    }
+    else if (anoinput < todayaaaa) {
+      alert('Utilize um cartão válido')
+    }
+    else if (anoinput === todayaaaa && mesinput < todaymm) {
+      alert('Utilize um cartão válido')
+    }
+    else if (anoinput >= todayaaaa && mesinput >= todaymm) {
+      setBtVerify(true)
+      alert('Cartão válido')
+      goToConfirm(navigate)
+    }
+  }
+  console.log(btVerify)
+
   return (
     <S.MainContainer>
       <Header />
@@ -26,44 +62,55 @@ const Sacola = () => {
               return <CardItem key={item.product.sku} item={item.product} />;
             })
           ) : (
-            <CardPagamento />
-            // <div>
-            //   <div>
-            //     <label>Número do cartão:</label>
-            //     <input
-            //       type="number"
-            //       id="numerocartao"
-            //       nome="numerocartao"
-            //       required
-            //       minLength={12}
-            //       maxLength="12"
-            //       size={16}
-            //       placeholder="____.____.____-____"
-            //     />
+            <S.Formulario id='myForm' onSubmit={enviarDados}>
+              <label>Número do cartão:</label>
+              <input
+                onChange={maskcard}
+                type="text"
+                id="numerocartao"
+                name="numerocartao"
+                value={formulario.numerocartao}
+                required
+                placeholder="____.____.____-____"
+              />
+              <label>Nome do Titular:</label>
+              <input
+                onChange={onChange}
+                type="text"
+                id="nomecartao"
+                name="nomecartao"
+                value={formulario.nomecartao}
+                placeholder="Como no cartão"
+                required
+              />
+              <div className="validadecvv">
 
-            //     <label>Nome do Titular:</label>
-            //     <input
-            //       type="text"
-            //       id="nomecartao"
-            //       nome="nomecartao"
-            //       placeholder="Como no cartão"
-            //       required
-            //       minLength={30}
-            //       maxLength="30"
-            //       size={30}
-            //     />
-            //   </div>
-            //   <div className="validadecvv">
-            //     <label>Validade (Mês/ano):</label>
-            //     <input type="number"
-            //       placeholder="__/____"
-            //     />
-            //     <label>CVV:</label>
-            //     <input type="number"
-            //       placeholder="___"
-            //     />
-            //   </div>
-            // </div>
+                <div className="labelinput">
+                  <label>Validade (Mês/ano):</label>
+                  <input
+                    onChange={maskval}
+                    type="text"
+                    placeholder="__/____"
+                    id="validade"
+                    name="validade"
+                    value={formulario.validade}
+                    required
+                  />
+                </div>
+                <div className="labelinput">
+                  <label>CVV:</label>
+                  <input
+                    onChange={maskcvv}
+                    type="number"
+                    placeholder="___"
+                    id='cvv'
+                    name='cvv'
+                    value={formulario.cvv}
+                    required
+                  />
+                </div>
+              </div>
+            </S.Formulario>
           )
         ) : (
           <p>Carregando Itens</p>
@@ -93,9 +140,13 @@ const Sacola = () => {
           SEGUIR PARA O PAGAMENTO
         </S.botaoPagamento>
       ) : (
-        <S.botaoPagamento onClick={() => goToConfirm(navigate)}>
-          FINALIZAR O PEDIDO
-        </S.botaoPagamento>
+        btVerify === false ?
+          <S.botaoPagamento form='myForm' type='submit'>
+            FINALIZAR O PEDIDO
+          </S.botaoPagamento> :
+          <S.botaoPagamento form='myForm' type='submit' onClick={() => goToConfirm(navigate)}>
+            FINALIZAR O PEDIDO
+          </S.botaoPagamento>
       )}
     </S.MainContainer>
   );

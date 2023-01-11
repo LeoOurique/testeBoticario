@@ -25,7 +25,13 @@ const useForm = (estadoInicial) => {
       .substring(0, 7)
     setForm({ ...formulario, [name]: nv });
   }
-  return { formulario, onChange, limpaInputs, maskcard, maskval };
+  const maskcvv = (event) => {
+    const { name, value } = event.target;
+    let nv = value.replace(/\D/g, "")
+      .substring(0, 3)
+    setForm({ ...formulario, [name]: nv });
+  }
+  return { formulario, onChange, limpaInputs, maskcard, maskval, maskcvv };
 }
 
 
