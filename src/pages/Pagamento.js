@@ -3,7 +3,7 @@ import Header from '../components/header/Header'
 
 const Pagamento = () => {
   return (
-    <div>Pagamento
+    <div>
       <Header />
     </div>
   )

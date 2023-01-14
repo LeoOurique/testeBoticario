@@ -6,6 +6,7 @@ background: #eee;
 height: 100%;
 align-items: center;
 font-family: Helvetica, sans-serif;
+
 h3 {
   align-self: flex-start;
   margin-left: 20px;
@@ -35,8 +36,30 @@ label {
 .validecvv {
   display: flex;
   flex-direction: row;
+  
 }
 
+
+.conteudoconfirmacao {
+background: white;
+border-radius: 5px;
+box-shadow: 3px 3px 15px rgb(0 0 0 / 0.5);
+display: flex;
+flex-direction: column;
+margin: 10px;
+
+@media screen and (min-device-width: 1024px) {
+  flex-direction: row;
+}
+
+}
+
+@media screen and (min-device-width: 1024px) {
+  h3 {
+    font-size: 18px;
+    margin: 15px 30px;
+  }
+}
 `
 export const List = styled.div`
 background: white;
@@ -46,6 +69,12 @@ width: 95%;
 display: flex;
 flex-direction: column;
 align-items: center;
+
+@media screen and (min-device-width: 1024px) {
+  flex-direction: row;
+  height: 200px;
+}
+
 `
 
 export const Fechamento = styled.div`
@@ -85,7 +114,7 @@ width: 95%;
 font-size: 20px;
 color: white;
 background-color: #ff6c00;
-box-shadow: 0 3px 15px rgb(#d45a00 / 0.3);
+box-shadow: inset 0 -3px 0 0 #D45A00, 0 2px 4px 0 rgba(0,0,0,0.25);
 border-radius: 3px;
 margin-top: 20px;
 padding: 18px 1px;
@@ -109,6 +138,7 @@ flex-direction: column;
 float: center;
 width: 50%;
 margin-left: 80px;
+
 `
 export const Formulario = styled.form`
 display: flex;
@@ -146,3 +176,58 @@ label {
   }
 }
 `
+
+export const TopoConfirmacao = styled.div`
+display: flex;
+flex-direction: column;
+text-align: start;
+justify-content: center;
+width: 100%;
+
+.logoConfirmacao {
+  color: #FF7800;
+  align-self: center;
+  margin-top: 12px;
+  padding: 0;
+  
+}
+p {
+  color: #FF7800;
+  font-family: Helvetica, sans-serif;
+  font-weight: bold;
+  margin-top: 11px;
+}
+
+  .sucessoCompra {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+`
+
+export const DadosPagamento = styled.div`
+display: flex;
+flex-direction: column;
+width: 100%;
+padding: 14px 10px;
+padding-bottom: 5px;
+
+p {
+  font-family: Helvetica, sans-serif;
+  font-size: 14px;
+  line-height: 17px;
+  font-weight: 500;
+  margin-bottom: 2.5px;
+  margin-left: 9px;
+  margin-top: 0;
+  
+  @media screen and (min-device-width: 1024px) {
+  font-size: 20px;
+  padding: 5px;
+  text-align: center  ;
+}
+}
+`
+
+
+

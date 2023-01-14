@@ -1,7 +1,9 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 import * as C from './styled';
 
-const cardItem = props => {
+const CardItem = props => {
+  const location = useLocation()
   return (
     <C.MainContainer>
       {props.item !== undefined ? (
@@ -11,7 +13,10 @@ const cardItem = props => {
           </C.ImageBox>
           <C.TextBox>
             <p>{props.item.name}</p>
-            <p className="Valor">R$ {props.item.priceSpecification.price.toFixed(2)}</p>
+            {location.pathname === '/confirmacao' ? null
+              :
+              <p className="Valor">R$ {props.item.priceSpecification.price.toFixed(2)}</p>
+            }
           </C.TextBox>
         </>
       ) : null}
@@ -19,4 +24,4 @@ const cardItem = props => {
   );
 };
 
-export default cardItem;
+export default CardItem;

@@ -12,6 +12,11 @@ color: black;
 font-size: 13px;
 line-height: 16px;
 margin: 12px;
+
+@media screen and (min-device-width: 1024px) {
+  font-size: 17px;
+  font-weight: 500;
+}
 `
 
 export const ImageBox = styled.div`
@@ -39,9 +44,6 @@ p {
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: clip;
-  
-  
-  
   
 }
 .Valor {

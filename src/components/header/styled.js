@@ -21,4 +21,13 @@ p {
   color: #ff7800;
 }
 
+@media screen and (min-device-width: 1024px) {
+height: 80px;
+font-size: 25px;
+align-items: center;
+
+p {
+  margin: 30px;
+}
+}
 `
