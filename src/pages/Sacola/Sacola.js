@@ -5,8 +5,9 @@ import Header from '../../components/header/Header';
 import * as S from './styled';
 import { goToConfirm, goToPayment } from '../../routes/coordinator';
 import { useNavigate, useLocation } from 'react-router-dom';
-import useForm from '../../hooks/UseForm';
+import useForm from './UseForm';
 import { CheckCircle } from 'phosphor-react';
+import swal from 'sweetalert';
 
 const Sacola = () => {
   const [btVerify, setBtVerify] = useState(false);
@@ -25,25 +26,27 @@ const Sacola = () => {
   const todayMonth = today.getMonth() + 1;
   const todayYear = today.getFullYear();
 
+
   function enviarDados(event) {
     event.preventDefault();
     const mesinput = formulario.validade.slice(0, 2);
     const anoinput = formulario.validade.slice(3, 7);
 
     if (mesinput > 12) {
-      alert('Selecione um mês válido');
+      swal("Erro Validação", "Selecione um mês valido", "error");
     } else if (anoinput < todayYear) {
-      alert('Utilize um cartão válido');
+      swal("Erro Validação", "Selecione um ano valido", "error");
     } else if (anoinput === todayYear && mesinput < todayMonth) {
-      alert('Utilize um cartão válido');
+      swal("Cartão Expirado", "Selecione um cartão valido", "error");
     } else if (anoinput >= todayYear && mesinput >= todayMonth) {
       setBtVerify(true);
-      alert('Cartão válido');
+      swal("Cartão valido!", "", "success");
       goToConfirm(navigate);
     }
   }
   const cartaoMascarado =
     '****.****.****.' + formulario.numerocartao.substr(-4);
+
 
   return (
     <S.MainContainer>
@@ -74,7 +77,7 @@ const Sacola = () => {
               <p>{formulario.validade}</p>
             </S.DadosPagamento>
           ) : (
-            <S.Formulario id="myForm" onSubmit={enviarDados}>
+            <S.Formulario id="myForm" onSubmit={enviarDados} >
               <label>Número do cartão:</label>
               <input
                 onChange={maskcard}
@@ -163,7 +166,10 @@ const Sacola = () => {
           SEGUIR PARA O PAGAMENTO
         </S.botaoPagamento>
       ) : location.pathname === '/confirmacao' ? null : btVerify === false ? (
-        <S.botaoPagamento form="myForm" type="submit">
+        <S.botaoPagamento
+          form="myForm"
+          type="submit">
+
           FINALIZAR O PEDIDO
         </S.botaoPagamento>
       ) : (
