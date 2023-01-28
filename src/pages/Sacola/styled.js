@@ -72,7 +72,8 @@ align-items: center;
 
 @media screen and (min-device-width: 1024px) {
   flex-direction: row;
-  height: 200px;
+  height: 250px;
+  align-items: flex-start; 
 }
 
 `

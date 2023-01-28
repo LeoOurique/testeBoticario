@@ -15,7 +15,7 @@ const Sacola = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const { formulario, onChange, limpaInputs, maskcard, maskval, maskcvv } =
+  const { formulario, onChange, maskcard, maskval, maskcvv } =
     useForm({
       numerocartao: '',
       nomecartao: '',
